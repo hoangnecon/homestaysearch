@@ -2,7 +2,8 @@ import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
-import { Search, Filter, Sparkles } from "lucide-react";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { Search, Filter, Sparkles, MapPin, Home, Users } from "lucide-react";
 
 interface HeroSearchProps {
   onSearch: (query: string) => void;
@@ -11,6 +12,9 @@ interface HeroSearchProps {
 export default function HeroSearch({ onSearch }: HeroSearchProps) {
   const [searchPrompt, setSearchPrompt] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+  const [selectedLocation, setSelectedLocation] = useState("");
+  const [selectedType, setSelectedType] = useState("");
+  const [selectedGuests, setSelectedGuests] = useState("");
 
   const handleAISearch = async () => {
     if (!searchPrompt.trim()) {
@@ -40,8 +44,71 @@ export default function HeroSearch({ onSearch }: HeroSearchProps) {
           Sử dụng AI để tìm homestay phù hợp với mong muốn của bạn. Chỉ cần mô tả những gì bạn cần!
         </p>
 
-        <div className="bg-white rounded-2xl shadow-2xl p-6 md:p-8 max-w-3xl mx-auto">
+        <div className="bg-white rounded-2xl shadow-2xl p-6 md:p-8 max-w-4xl mx-auto">
           <div className="space-y-6">
+            {/* Quick Selection Row */}
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
+              <div>
+                <Label className="block text-left text-sm font-medium text-gray-700 mb-2">
+                  <MapPin className="inline w-4 h-4 text-primary mr-2" />
+                  Địa điểm
+                </Label>
+                <Select value={selectedLocation} onValueChange={setSelectedLocation}>
+                  <SelectTrigger className="w-full">
+                    <SelectValue placeholder="Nhiều điểm đến" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="my-khe">Mỹ Khê</SelectItem>
+                    <SelectItem value="hai-chau">Hải Châu</SelectItem>
+                    <SelectItem value="an-thuong">An Thượng</SelectItem>
+                    <SelectItem value="son-tra">Sơn Trà</SelectItem>
+                    <SelectItem value="ngu-hanh-son">Ngũ Hành Sơn</SelectItem>
+                    <SelectItem value="thanh-khe">Thanh Khê</SelectItem>
+                  </SelectContent>
+                </Select>
+              </div>
+
+              <div>
+                <Label className="block text-left text-sm font-medium text-gray-700 mb-2">
+                  <Home className="inline w-4 h-4 text-primary mr-2" />
+                  Loại hình
+                </Label>
+                <Select value={selectedType} onValueChange={setSelectedType}>
+                  <SelectTrigger className="w-full">
+                    <SelectValue placeholder="Chọn loại hình" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="villa">Villa</SelectItem>
+                    <SelectItem value="studio">Studio</SelectItem>
+                    <SelectItem value="apartment">Căn hộ</SelectItem>
+                    <SelectItem value="house">Nhà nguyên căn</SelectItem>
+                    <SelectItem value="room">Phòng riêng</SelectItem>
+                    <SelectItem value="hostel">Hostel</SelectItem>
+                  </SelectContent>
+                </Select>
+              </div>
+
+              <div>
+                <Label className="block text-left text-sm font-medium text-gray-700 mb-2">
+                  <Users className="inline w-4 h-4 text-primary mr-2" />
+                  Ở khách
+                </Label>
+                <Select value={selectedGuests} onValueChange={setSelectedGuests}>
+                  <SelectTrigger className="w-full">
+                    <SelectValue placeholder="Số lượng" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="1">1 khách</SelectItem>
+                    <SelectItem value="2">2 khách</SelectItem>
+                    <SelectItem value="3">3 khách</SelectItem>
+                    <SelectItem value="4">4 khách</SelectItem>
+                    <SelectItem value="5">5 khách</SelectItem>
+                    <SelectItem value="6+">6+ khách</SelectItem>
+                  </SelectContent>
+                </Select>
+              </div>
+            </div>
+
             <div>
               <Label htmlFor="search-prompt" className="block text-left text-sm font-medium text-gray-700 mb-3">
                 <Sparkles className="inline w-4 h-4 text-primary mr-2" />
