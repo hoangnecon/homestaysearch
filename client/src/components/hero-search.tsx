@@ -39,122 +39,120 @@ export default function HeroSearch({ onSearch }: HeroSearchProps) {
       <div className="absolute inset-0 bg-black/10"></div>
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
         <div className="mb-8">
-          <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold text-white mb-4 leading-tight">
-            TÌM KIẾM CƠ SỞ LƯU TRÚ DU LỊCH
+          <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6 leading-tight">
+            Tìm Homestay Đà Nẵng
           </h1>
-          <h2 className="text-2xl md:text-3xl font-medium text-green-100 mb-6">
-            CHO KỲ NGHỈ CỦA BẠN
-          </h2>
+          <p className="text-xl text-white/90 mb-8 max-w-2xl mx-auto">
+            Sử dụng AI để tìm homestay phù hợp với mong muốn của bạn. Chỉ cần mô tả những gì bạn cần!
+          </p>
         </div>
 
-        <div className="bg-white rounded-3xl shadow-2xl p-2 max-w-5xl mx-auto">
-          <div className="grid grid-cols-1 lg:grid-cols-4 gap-2">
-            {/* Search Input */}
-            <div className="lg:col-span-1 relative">
-              <div className="flex items-center h-14 px-4 rounded-2xl bg-gray-50 border border-gray-200">
-                <Search className="h-5 w-5 text-gray-400 mr-3" />
-                <input
-                  type="text"
-                  value={searchPrompt}
-                  onChange={(e) => setSearchPrompt(e.target.value)}
-                  placeholder="Nhập homestay, villa, hotel,..."
-                  className="flex-1 bg-transparent text-gray-700 placeholder-gray-400 text-sm focus:outline-none"
-                />
+        <div className="bg-white rounded-2xl shadow-2xl p-6 md:p-8 max-w-4xl mx-auto">
+          <div className="space-y-6">
+            {/* Quick Selection Row */}
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
+              <div>
+                <Label className="block text-left text-sm font-medium text-gray-700 mb-2">
+                  <MapPin className="inline w-4 h-4 text-primary mr-2" />
+                  Địa điểm
+                </Label>
+                <Select value={selectedLocation} onValueChange={setSelectedLocation}>
+                  <SelectTrigger className="w-full">
+                    <SelectValue placeholder="Nhiều điểm đến" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="my-khe">Mỹ Khê</SelectItem>
+                    <SelectItem value="hai-chau">Hải Châu</SelectItem>
+                    <SelectItem value="an-thuong">An Thượng</SelectItem>
+                    <SelectItem value="son-tra">Sơn Trà</SelectItem>
+                    <SelectItem value="ngu-hanh-son">Ngũ Hành Sơn</SelectItem>
+                    <SelectItem value="thanh-khe">Thanh Khê</SelectItem>
+                  </SelectContent>
+                </Select>
+              </div>
+
+              <div>
+                <Label className="block text-left text-sm font-medium text-gray-700 mb-2">
+                  <Home className="inline w-4 h-4 text-primary mr-2" />
+                  Loại hình
+                </Label>
+                <Select value={selectedType} onValueChange={setSelectedType}>
+                  <SelectTrigger className="w-full">
+                    <SelectValue placeholder="Chọn loại hình" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="villa">Villa</SelectItem>
+                    <SelectItem value="studio">Studio</SelectItem>
+                    <SelectItem value="apartment">Căn hộ</SelectItem>
+                    <SelectItem value="house">Nhà nguyên căn</SelectItem>
+                    <SelectItem value="room">Phòng riêng</SelectItem>
+                    <SelectItem value="hostel">Hostel</SelectItem>
+                  </SelectContent>
+                </Select>
+              </div>
+
+              <div>
+                <Label className="block text-left text-sm font-medium text-gray-700 mb-2">
+                  <Users className="inline w-4 h-4 text-primary mr-2" />
+                  Ở khách
+                </Label>
+                <Select value={selectedGuests} onValueChange={setSelectedGuests}>
+                  <SelectTrigger className="w-full">
+                    <SelectValue placeholder="Số lượng" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="1">1 khách</SelectItem>
+                    <SelectItem value="2">2 khách</SelectItem>
+                    <SelectItem value="3">3 khách</SelectItem>
+                    <SelectItem value="4">4 khách</SelectItem>
+                    <SelectItem value="5">5 khách</SelectItem>
+                    <SelectItem value="6+">6+ khách</SelectItem>
+                  </SelectContent>
+                </Select>
               </div>
             </div>
 
-            {/* Location Selection */}
-            <div className="relative">
-              <div className="flex items-center h-14 px-4 rounded-2xl bg-gray-50 border border-gray-200 cursor-pointer">
-                <MapPin className="h-5 w-5 text-orange-500 mr-3" />
-                <div className="flex-1">
-                  <div className="text-xs font-medium text-gray-700">Địa điểm</div>
-                  <div className="text-sm text-gray-500">
-                    {selectedLocation ? selectedLocation : "Nhập điểm đến"}
-                  </div>
-                </div>
-              </div>
-              <Select value={selectedLocation} onValueChange={setSelectedLocation}>
-                <SelectTrigger className="absolute inset-0 opacity-0">
-                  <SelectValue />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="my-khe">Mỹ Khê</SelectItem>
-                  <SelectItem value="hai-chau">Hải Châu</SelectItem>
-                  <SelectItem value="an-thuong">An Thượng</SelectItem>
-                  <SelectItem value="son-tra">Sơn Trà</SelectItem>
-                  <SelectItem value="ngu-hanh-son">Ngũ Hành Sơn</SelectItem>
-                  <SelectItem value="thanh-khe">Thanh Khê</SelectItem>
-                </SelectContent>
-              </Select>
+            <div>
+              <Label htmlFor="search-prompt" className="block text-left text-sm font-medium text-gray-700 mb-3">
+                <Sparkles className="inline w-4 h-4 text-primary mr-2" />
+                Mô tả homestay bạn mong muốn
+              </Label>
+              <Textarea
+                id="search-prompt"
+                value={searchPrompt}
+                onChange={(e) => setSearchPrompt(e.target.value)}
+                placeholder="Mô tả homestay bạn muốn (gần biển, giá rẻ, hiện đại...)"
+                className="w-full h-32 px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-primary focus:border-transparent resize-none text-gray-700 placeholder-gray-400 text-base"
+                rows={4}
+              />
             </div>
 
-            {/* Type Selection */}
-            <div className="relative">
-              <div className="flex items-center h-14 px-4 rounded-2xl bg-gray-50 border border-gray-200 cursor-pointer">
-                <Home className="h-5 w-5 text-green-500 mr-3" />
-                <div className="flex-1">
-                  <div className="text-xs font-medium text-gray-700">Loại hình</div>
-                  <div className="text-sm text-gray-500">
-                    {selectedType ? selectedType : "Chọn loại hình"}
-                  </div>
-                </div>
-              </div>
-              <Select value={selectedType} onValueChange={setSelectedType}>
-                <SelectTrigger className="absolute inset-0 opacity-0">
-                  <SelectValue />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="villa">Villa</SelectItem>
-                  <SelectItem value="studio">Studio</SelectItem>
-                  <SelectItem value="apartment">Căn hộ</SelectItem>
-                  <SelectItem value="house">Nhà nguyên căn</SelectItem>
-                  <SelectItem value="room">Phòng riêng</SelectItem>
-                  <SelectItem value="hostel">Hostel</SelectItem>
-                </SelectContent>
-              </Select>
-            </div>
-
-            {/* Guests Selection & Search Button */}
-            <div className="relative">
-              <div className="flex items-center h-14 rounded-2xl overflow-hidden">
-                <div className="flex items-center px-4 bg-gray-50 border border-gray-200 border-r-0 rounded-l-2xl flex-1 h-full cursor-pointer">
-                  <Users className="h-5 w-5 text-blue-500 mr-3" />
-                  <div className="flex-1">
-                    <div className="text-xs font-medium text-gray-700">Ở khách</div>
-                    <div className="text-sm text-gray-500">
-                      {selectedGuests ? selectedGuests : "Số lượng"}
-                    </div>
-                  </div>
-                </div>
-                <Button
-                  onClick={handleAISearch}
-                  disabled={isLoading}
-                  className="bg-orange-500 hover:bg-orange-600 text-white px-6 h-14 rounded-r-2xl font-medium text-sm"
-                >
-                  {isLoading ? (
-                    <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-white"></div>
-                  ) : (
-                    <>
-                      <Search className="mr-2 h-4 w-4" />
-                      Tìm kiếm
-                    </>
-                  )}
-                </Button>
-              </div>
-              <Select value={selectedGuests} onValueChange={setSelectedGuests}>
-                <SelectTrigger className="absolute left-0 top-0 w-3/5 h-full opacity-0">
-                  <SelectValue />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="1">1 khách</SelectItem>
-                  <SelectItem value="2">2 khách</SelectItem>
-                  <SelectItem value="3">3 khách</SelectItem>
-                  <SelectItem value="4">4 khách</SelectItem>
-                  <SelectItem value="5">5 khách</SelectItem>
-                  <SelectItem value="6+">6+ khách</SelectItem>
-                </SelectContent>
-              </Select>
+            <div className="flex flex-col sm:flex-row gap-3">
+              <Button
+                onClick={handleAISearch}
+                disabled={isLoading}
+                className="flex-1 bg-primary hover:bg-primary/90 text-white px-8 py-4 rounded-xl font-semibold text-lg transition-all duration-200 transform hover:scale-105 shadow-lg hover:shadow-xl h-auto"
+              >
+                {isLoading ? (
+                  <>
+                    <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-white mr-2"></div>
+                    Đang tìm kiếm...
+                  </>
+                ) : (
+                  <>
+                    <Search className="mr-2 h-4 w-4" />
+                    Tìm với AI
+                  </>
+                )}
+              </Button>
+              <Button
+                onClick={handleQuickSearch}
+                variant="secondary"
+                className="sm:w-auto bg-secondary hover:bg-secondary/90 text-white px-6 py-4 rounded-xl font-medium transition-colors h-auto"
+              >
+                <Filter className="mr-2 h-4 w-4" />
+                Lọc nhanh
+              </Button>
             </div>
           </div>
         </div>
