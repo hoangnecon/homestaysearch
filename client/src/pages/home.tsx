@@ -16,9 +16,8 @@ export default function Home() {
       <Header />
       <HeroSearch onSearch={setSearchQuery} />
       <QuickFilters selectedArea={selectedArea} onAreaSelect={setSelectedArea} />
-      {searchQuery || selectedArea ? (
-        <HomestayGrid searchQuery={searchQuery} selectedArea={selectedArea} />
-      ) : (
+      <HomestayGrid searchQuery={searchQuery} selectedArea={selectedArea} />
+      {!searchQuery && !selectedArea && (
         <>
           <FeaturedHomestays />
           <PopularAreas />
